@@ -1,7 +1,6 @@
 <?php
 
 function sendgrid_send_email($options) {
-
     error_log("sendgrid_send_email() - Start");
 
     //sanitize from/to addresses
@@ -77,6 +76,8 @@ function sendgrid_send_email($options) {
             foreach ($options['sg_template_sub'] as $tag => $values) {
                 $email->addSubstitution($tag, $values);
             }
+        } else if ($options['-user_icon-']) {
+            $email->addSubstitution('-user_icon-', array($options['-user_icon-']));
         } else if (elgg_is_logged_in()) {
             $email->addSubstitution('-user_icon-', array(elgg_get_logged_in_user_entity()->getIconURL()));
         }

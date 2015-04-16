@@ -67,6 +67,15 @@ function sendgrid_notify_handler(ElggEntity $from, ElggUser $to, $subject, $mess
 
     // From
     $site = elgg_get_site_entity();
+	
+	$icon = false;
+	if (($from instanceof \ElggUser) || ($from instanceof \ElggGroup)) {
+		if ($from->access_id == ACCESS_PUBLIC) {
+			$icon = $from->getIconURL();
+		}
+	} else if (elgg_is_logged_in()) {
+		$icon = elgg_get_logged_in_user_entity()->getIconURL();
+	}
 
     // If there's an email address, use it - but only if its not from a user.
     if (!($from instanceof ElggUser) && $from->email) {
@@ -78,16 +87,17 @@ function sendgrid_notify_handler(ElggEntity $from, ElggUser $to, $subject, $mess
         // If all else fails, use the domain of the site.
         $from = 'noreply@' . get_site_domain($CONFIG->site_guid);
     }
-
+	
     // set options for sending
     $options = array(
-        "to"        => $to->email,
-        "to_name"   => $to->name,
-        "from"      => $site->email,
-        "from_name" => $site->name,
-        "subject"   => $subject,
-        "html"      => nl2br($message),
-        "text"      => $message,
+        "to"          => $to->email,
+        "to_name"     => $to->name,
+        "from"        => $site->email,
+        "from_name"   => $site->name,
+        "subject"     => $subject,
+        "html"        => nl2br($message),
+        "text"        => $message,
+		"-user_icon-" => $icon
     );
 
     if (is_array($params)) {
