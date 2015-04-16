@@ -1,0 +1,6 @@
+{  
+  "require": {
+    "sendgrid/sendgrid": "2.1.1",
+    "html2text/html2text": "*"
+  }
+}
