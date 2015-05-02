@@ -68,13 +68,15 @@ function sendgrid_notify_handler(ElggEntity $from, ElggUser $to, $subject, $mess
     // From
     $site = elgg_get_site_entity();
 	
-	$icon = false;
-	if (($from instanceof \ElggUser) || ($from instanceof \ElggGroup)) {
-		if ($from->access_id == ACCESS_PUBLIC) {
-			$icon = $from->getIconURL();
+	$icon = isset($params['-user_icon-']) ? $params['-user_icon-'] : false;
+	if (!$icon) {
+		if (($from instanceof \ElggUser) || ($from instanceof \ElggGroup)) {
+			if ($from->access_id == ACCESS_PUBLIC) {
+				$icon = $from->getIconURL();
+			}
+		} else if (elgg_is_logged_in()) {
+			$icon = elgg_get_logged_in_user_entity()->getIconURL();
 		}
-	} else if (elgg_is_logged_in()) {
-		$icon = elgg_get_logged_in_user_entity()->getIconURL();
 	}
 
     // If there's an email address, use it - but only if its not from a user.
