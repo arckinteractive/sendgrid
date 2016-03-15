@@ -54,21 +54,21 @@
             <p><strong><a target="_blank" href="/mod/sendgrid/dashboard">SendGrid Dashboard</a></strong></p>
 
             <div>
-                <label class="label"><?php echo elgg_echo('Username'); ?>:</label>
+                <label><?php echo elgg_echo('Username'); ?>:</label>
                 <p>
                     <?php echo elgg_view('input/text', array('name' => 'params[sendgrid_user]', 'value' => $vars['entity']->sendgrid_user)); ?>
                 </p>
             </div>
 
             <div>
-                <label class="label"><?php echo elgg_echo('Password'); ?>:</label>
+                <label><?php echo elgg_echo('Password'); ?>:</label>
                 <p>
                     <?php echo elgg_view('input/password', array('name' => 'params[sendgrid_pass]', 'value' => $vars['entity']->sendgrid_pass)); ?>
                 </p>
             </div>
 
             <p>
-                <label class="label">Use Template Engine: </label>
+                <label>Use Template Engine: </label>
                 <?php echo elgg_view('input/checkbox', array(
                     'name'    => 'params[sendgrid_template]',
                     'id'      => 'sendgrid-template',
@@ -85,7 +85,7 @@
             </div>
 
 			<p style="margin-top:10px;">
-                <label class="label">Ignore SSL (don't use on production): 
+                <label>Ignore SSL (don't use on production): 
 				<?php echo elgg_view('input/dropdown', array(
 						'name' => 'params[ignore_sendgrid_ssl]',
 						'value' => $vars['entity']->ignore_sendgrid_ssl,
